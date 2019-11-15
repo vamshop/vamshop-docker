@@ -1,0 +1,12 @@
+{
+  "apps": [{
+    "name": "api",
+    "script": "./src/index.js",
+    "node_args": "-r esm",
+    "instances": "1",
+    "exec_mode": "fork",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }]
+}
