@@ -1,24 +1,24 @@
 # Supported tags and respective Dockerfile links
 
 - ```0.34.0```,```0.35.0```, ```latest```
-[(0.35.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.35.0/cezerin2-admin/Dockerfile)
-[(0.34.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.34.0/cezerin2-admin/Dockerfile)
+[(0.35.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.35.0/vamshop-dashboard/Dockerfile)
+[(0.34.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.34.0/vamshop-dashboard/Dockerfile)
 
 
-# What is Cezerin?
-[Cezerin](https://github.com/cezerin2/cezerin2) is React and Node.js based eCommerce platform.
+# What is VamShop?
+[VamShop](https://github.com/vamshop/vamshop-api) is React and Node.js based eCommerce platform.
 
 # How to use this image
 
-### Start a cezerin2-admin server instance
+### Start a vamshop-dashboard server instance
 
 #### With Port ***3002****
 
 ```shell
 docker run -d \
---name admin \
+--name vamshop-dashboard \
 -p 3002:80 \
-cezerin2/cezerin2-admin:latest
+vamshop/vamshop-dashboard:latest
 ```
 
 ### Environment variables

@@ -4,14 +4,14 @@
 
 #Supported Images
 
-- [cezerin2 api](https://github.com/cezerin2/docker-cezerin2/blob/master/cezerin2/README.md)
-- [cezerin2 admin](https://github.com/cezerin2/docker-cezerin2/blob/master/cezerin2-admin/README.md)
-- [cezerin2 store](https://github.com/cezerin2/docker-cezerin2/blob/master/cezerin2-store/README.md)
-- [cezerin2 proxy](https://github.com/cezerin2/docker-cezerin2/blob/master/cezerin2-proxy/README.md)
+- [vamshop-api](https://github.com/vamshop/vamshop-docker/blob/master/vamshop-api/README.md)
+- [vamshop-dashboard](https://github.com/vamshop/vamshop-docker/blob/master/vamshop-dashboard/README.md)
+- [vamshop-storefront](https://github.com/vamshop/vamshop-docker/blob/master/vamshop-storefront/README.md)
+- [vamshop-proxy](https://github.com/vamshop/vamshop-docker/blob/master/vamshop-proxy/README.md)
 
 
-# What is Cezerin?
-[Cezerin](https://github.com/cezerin2/cezerin2) is React and Node.js based eCommerce platform.
+# What is VamShop?
+[VamShop](https://github.com/vamshop/vamshop-api) is React and Node.js based eCommerce platform.
 
 # docker - How to use this images
 
@@ -24,11 +24,11 @@ docker run -d \
 mongo:latest
 ```
 
-### Start a ceszerin2 server instance
+### Start a vamshop-api server instance
 
 ```shell
 docker run -d \
---name cezerin2 \
+--name vamshop-api \
 --link store-db:db \
 -p 3001:80 \
 -e DB_HOST=db \
@@ -36,31 +36,31 @@ docker run -d \
 -e DB_NAME=shop \
 -e DB_USER= \
 -e DB_PASS= \
--v /var/www/cezerin2/public/content:/var/www/cezerin2/public/content \
-cezerin2/cezerin2:latest
+-v /var/www/vamshop-api/public/content:/var/www/vamshop-api/public/content \
+vamshop/vamshop-api:latest
 ```
 
-### Start a ceszerin2 admin server instance
+### Start a vamshop-dashboard server instance
 
 ```shell
 docker run -d \
---name cezerin2-admin \
---link cezerin2:cezerin2 \
+--name vamshop-dashboard \
+--link vamshop-api:vamshop-api \
 -p 3002:80 \
--e API_BASE_URL=http://cezerin2/api/vi
-cezerin2/cezerin2-admin:latest
+-e API_BASE_URL=http://vamshop/api/vi
+vamshop/vamshop-dashboard:latest
 ```
 
-### Start a ceszerin2 store server instance
+### Start a vamshop-storefront server instance
 
 ```shell
 docker run -d \
---name ceszerin2-store \
---link cezerin2:cezerin2 \
+--name vamshop-storefront \
+--link vamshop-api:vamshop-api \
 -p 3000:80 \
--e API_BASE_URL=http://cezerin2/api/v1 \ 
--e AJAX_BASE_URL=http://cezerin2/ajax \ 
-cezerin2/cezerin2-store:latest
+-e API_BASE_URL=http://vamshop/api/v1 \ 
+-e AJAX_BASE_URL=http://vamshop/ajax \ 
+vamshop/vamshop-storefront:latest
 ```
 
 # docker compose - How to use this images
@@ -69,8 +69,8 @@ cezerin2/cezerin2-store:latest
 version: '3'
 
 services:
-  cezerin2:
-    image: cezerin2/cezerin2
+  vamshop-api:
+    image: vamshop/vamshop-api
     ports:
       - 3001:80
     environment:
@@ -80,28 +80,28 @@ services:
       - DB_USER=
       - DB_PASS=
     volumes:
-      - ./content:/var/www/cezerin2/public/content
+      - ./content:/var/www/vamshop-api/public/content
     depends_on:
       - db
     restart: always
 
-  cezerin2-store:
-    image: cezerin2/cezerin2-store
+  vamshop-storefront:
+    image: vamshop/vamshop-storefront
     environment:
-      - API_BASE_URL=http://cezerin2/api/v1
-      - AJAX_BASE_URL=http://cezerin2/ajax
+      - API_BASE_URL=http://vamshop/api/v1
+      - AJAX_BASE_URL=http://vamshop/ajax
     ports:
       - 3000:80
     depends_on:
-      - cezerin2
+      - vamshop-api
     restart: always
 
-  admin:
-    image: cezerin2/cezerin2-admin
+  vamshop-dashboard:
+    image: vamshop/vamshop-dashboard
     ports:
       - 3002:80
     depends_on:
-      - cezerin2
+      - vamshop-api
     restart: always
 
   db:

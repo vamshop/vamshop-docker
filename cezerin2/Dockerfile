@@ -1,8 +1,8 @@
 FROM node:8
-LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>"
+LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>, VamShop <vamshop@gmail.com>"
 
 ENV NGINX_CODENAME stretch
-ENV CEZERIN_VERSION 0.35.0
+ENV VAMSHOP_VERSION 0.35.0
 ENV API_PORT 3001
 
 # install requirements and NGINX
@@ -25,29 +25,29 @@ RUN npm install pm2 -g
 # download project
 RUN mkdir -p /var/www \
     && cd /var/www \
-    && wget -O cezerin2.zip https://github.com/cezerin2/cezerin2/archive/v$CEZERIN_VERSION.zip \
-    && unzip cezerin2.zip \
-    && rm cezerin2.zip \
-    && mv cezerin2-$CEZERIN_VERSION cezerin2
+    && wget -O vamshop-api.zip https://github.com/vamshop/vamshop-api/archive/$VAMSHOP_VERSION.zip \
+    && unzip vamshop-api.zip \
+    && rm vamshop-api.zip \
+    && mv vamshop-api-$VAMSHOP_VERSION vamshop-api
 
 # overwrite PM2 process file
-COPY process.json /var/www/cezerin2/
+COPY process.json /var/www/vamshop-api/
 
 # Nginx config
-RUN cd /var/www/cezerin2 \
+RUN cd /var/www/vamshop-api \
 	&& mv nginx/nginx.conf /etc/nginx/ \
 	&& mv nginx/default.conf.template /etc/nginx/conf.d/
 
 # script to run Nginx and PM2
-RUN cd /var/www/cezerin2 \
+RUN cd /var/www/vamshop-api \
 	&& mv docker-entrypoint.sh /usr/local/bin/ \
 	&& chmod +x "/usr/local/bin/docker-entrypoint.sh"
 
 # build project
-RUN cd /var/www/cezerin2 \
+RUN cd /var/www/vamshop-api \
     && npm i
 
-WORKDIR /var/www/cezerin2
+WORKDIR /var/www/vamshop-api
 
 EXPOSE 80
 

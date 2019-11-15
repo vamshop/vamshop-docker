@@ -1,54 +1,54 @@
 # Supported tags and respective Dockerfile links
 
 - ```0.33.0```, ```0.34.0```, ```0.35.0```, ```latest```
-[(0.35.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.35.0/cezerin2/Dockerfile)
-[(0.34.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.34.0/cezerin2/Dockerfile)
-[(0.33.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.33.0/images/0.33.0/Dockerfile)
+[(0.35.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.35.0/vamshop-api/Dockerfile)
+[(0.34.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.34.0/vamshop-api/Dockerfile)
+[(0.33.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.33.0/vamshop-api/Dockerfile)
 
 
-# What is Cezerin?
-[Cezerin](https://github.com/cezerin2/cezerin2) is React and Node.js based eCommerce platform.
+# What is VamShop?
+[VamShop](https://github.com/vamshop/vamshop-api) is React and Node.js based eCommerce platform.
 
 # How to use this image
 
-### Start a cezerin server instance
+### Start a vamshop-api server instance
 
 #### With Port ***3001****
 
 ```shell
 docker run -d \
---name api \
+--name vamshop-api \
 -p 3001:80 \
-cezerin2/cezerin2:latest
+vamshop/vamshop-api:latest
 ```
 
 #### With Port ***3001**** & Mongodb
 
 ```shell
 docker run -d \
---name api \
+--name vamshop-api \
 -p 3001:80 \
 -e DB_HOST=255.255.255.255 \
 -e DB_PORT=27017 \
 -e DB_NAME=shop \
 -e DB_USER= \
 -e DB_PASS= \
-cezerin2/cezerin2:latest
+vamshop/vamshop-api:latest
 ```
 
 #### With Port ***3001****, Mongodb & Volume
 
 ```shell
 docker run -d \
---name api \
+--name vamshop-api \
 -p 3001:80 \
 -e DB_HOST=255.255.255.255 \
 -e DB_PORT=27017 \
 -e DB_NAME=shop \
 -e DB_USER= \
 -e DB_PASS= \
--v /var/www/cezerin-on-host:/var/www/cezerin \
-cezerin2/cezerin2:latest
+-v /var/www/vamshop-on-host:/var/www/vamshop-api \
+vamshop/vamshop-api:latest
 ```
 
 ### Environment variables

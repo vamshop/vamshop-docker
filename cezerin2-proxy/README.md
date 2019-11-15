@@ -1,28 +1,28 @@
 # Supported tags and respective Dockerfile links
 
 - ```0.34.0```,```0.35.0```,  ```latest```
-[(0.35.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.35.0/cezerin2-proxy/Dockerfile)
-[(0.34.0/Dockerfile)](https://github.com/cezerin2/docker-cezerin2/blob/v0.34.0/cezerin2-proxy/Dockerfile)
+[(0.35.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.35.0/vamshop-proxy/Dockerfile)
+[(0.34.0/Dockerfile)](https://github.com/vamshop/vamshop-docker/blob/v0.34.0/vamshop-proxy/Dockerfile)
 
 
-# What is Cezerin?
-[Cezerin](https://github.com/cezerin2/cezerin2) is React and Node.js based eCommerce platform.
+# What is VamShop?
+[VamShop](https://github.com/vamshop/vamshop-api) is React and Node.js based eCommerce platform.
 
 # Docker - How to use this image
 
-### Start a cezerin2-admin server instance
+### Start a vamshop-proxy server instance
 
 #### With Port ***80****
 
 ```shell
 docker run -d \
---name proxy \
+--name vamshop-proxy \
 -p 80:80 \
 -e DOMAIN=example.com \
 -e API_HOST=localhost:3001 \
 -e STORE_HOST=localhost:3000 \
 -e ADMIN_HOST=localhost:3002 \
-cezerin2/cezerin2-proxy:latest
+vamshop/vamshop-proxy:latest
 ```
 
 # Docker Compose - How to use this image
@@ -31,8 +31,8 @@ cezerin2/cezerin2-proxy:latest
 version: '3'
 
 services:
-  cezerin2:
-    image: cezerin2/cezerin2
+  vamshop-api:
+    image: vamshop/vamshop-api
     ports:
       - 3001:80
     environment:
@@ -43,45 +43,45 @@ services:
       - ADMIN_BASE_URL=http://admin.example.com
       - ASSETS_BASE_URL=http://api.example.com
     volumes:
-      - ./content:/var/www/cezerin2/public/content
+      - ./content:/var/www/vamshop-api/public/content
     depends_on:
       - db
     restart: always
 
-  cezerin2-store:
-    image: cezerin2/cezerin2-store
+  vamshop-storefront:
+    image: vamshop/vamshop-storefront
     environment:
       - API_BASE_URL=http://api.example.com/api/v1
       - AJAX_BASE_URL=http://api.example.com/ajax
     ports:
       - 3000:80
     depends_on:
-      - cezerin2
+      - vamshop-api
     restart: always
 
-  cezerin2-admin:
-    image: cezerin2/cezerin2-admin
+  vamshop-dashboard:
+    image: vamshop/vamshop-dashboard
     environment:
       - API_BASE_URL=http://api.example.com/api/v1
     ports:
       - 3002:80
     depends_on:
-      - cezerin2
+      - vamshop-api
     restart: always
 
-  cezerin2-proxy:
-    image: cezerin2/cezerin2-proxy
+  vamshop-proxy:
+    image: vamshop/vamshop-proxy
     environment:
       - DOMAIN=example.com
-      - API_HOST=cezerin2
-      - STORE_HOST=cezerin2-store
-      - ADMIN_HOST=cezerin2-admin
+      - API_HOST=vamshop-api
+      - STORE_HOST=vamshop-storefront
+      - ADMIN_HOST=vamshop-dashboard
     ports:
       - 80:80
     depends_on:
-      - cezerin2
-      - cezerin2-store
-      - cezerin2-admin
+      - vamshop-api
+      - vamshop-storefront
+      - vamshop-dashboard
     restart: always
 
   db:

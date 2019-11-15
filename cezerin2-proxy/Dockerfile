@@ -1,5 +1,5 @@
 FROM node:8
-LABEL maintainer "Luke Busstra <luke.busstra@gmail.com>"
+LABEL maintainer "Luke Busstra <luke.busstra@gmail.com>, VamShop <vamshop@gmail.com>"
 
 ENV NGINX_CODENAME stretch
 
