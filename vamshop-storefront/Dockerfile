@@ -24,7 +24,7 @@ RUN npm install pm2 -g
 # download project
 RUN mkdir -p /var/www \
     && cd /var/www \
-    && wget -O vamshops-storefront.zip https://github.com/vamshop/vamshop-storefront/archive/$VAMSHOP_VERSION.zip \
+    && wget -O vamshop-storefront.zip https://github.com/vamshop/vamshop-storefront/archive/$VAMSHOP_VERSION.zip \
     && unzip vamshop-storefront.zip \
     && rm vamshop-storefront.zip \
     && mv vamshop-storefront-$VAMSHOP_VERSION vamshop-storefront
