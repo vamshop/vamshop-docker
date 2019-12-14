@@ -30,22 +30,22 @@ RUN mkdir -p /var/www \
     && mv vamshop-storefront-$VAMSHOP_VERSION vamshop-storefront
 
 # Nginx config
-RUN cd /var/www/vamshop-api \
+RUN cd /var/www/vamshop-storefront \
 	&& mv nginx/nginx.conf /etc/nginx/ \
 	&& mv nginx/default.conf.template /etc/nginx/conf.d/ 
 
 # script to run Nginx and PM2
-RUN cd /var/www/vamshop-api \
+RUN cd /var/www/vamshop-storefront \
 	&& mv docker-entrypoint.sh /usr/local/bin/ \
 	&& chmod +x "/usr/local/bin/docker-entrypoint.sh"
 
 # build project
-RUN cd /var/www/vamshop-api \
+RUN cd /var/www/vamshop-storefront \
 	&& npm install \
 	&& npm cache clean --force \
 	&& npm run build
 
-WORKDIR /var/www/vamshop-api
+WORKDIR /var/www/vamshop-storefront
 
 EXPOSE 80
 
