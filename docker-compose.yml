@@ -22,7 +22,7 @@ services:
   vamshop-storefront:
     image: vamshop/vamshop-storefront
     environment:
-      - LANGUAGE=en
+      - LANGUAGE=ru
       - API_BASE_URL=http://vamshop-api/api/v1
       - AJAX_BASE_URL=http://vamshop-api/ajax
     ports:
@@ -34,7 +34,7 @@ services:
   admin:
     image: vamshop/vamshop-dashboard
     environment:
-      - LANGUAGE=en
+      - LANGUAGE=ru
     ports:
       - 3002:80
     depends_on:
