@@ -3,6 +3,8 @@ version: '3'
 services:
   vamshop-api:
     image: vamshop/vamshop-api
+    environment:
+      - LANGUAGE=ru
     ports:
       - 3001:80
     environment:
@@ -19,14 +21,20 @@ services:
 
   vamshop-storefront:
     image: vamshop/vamshop-storefront
+    environment:
+      - LANGUAGE=en
+      - API_BASE_URL=http://vamshop-api/api/v1
+      - AJAX_BASE_URL=http://vamshop-api/ajax
     ports:
       - 3000:80
     depends_on:
       - vamshop-api
     restart: always
 
-  vamshop-dashboard:
+  admin:
     image: vamshop/vamshop-dashboard
+    environment:
+      - LANGUAGE=en
     ports:
       - 3002:80
     depends_on:
@@ -34,7 +42,7 @@ services:
     restart: always
 
   db:
-    image: mongo:3.4
+    image: mongo:3.6
     ports:
       - 27017:27017
     volumes:
