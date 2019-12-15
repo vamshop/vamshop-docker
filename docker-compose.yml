@@ -19,9 +19,6 @@ services:
 
   vamhop-storefront:
     image: vamshop/vamshop-storefront
-    environment:
-      - API_BASE_URL=http://vamshop/api/v1
-      - AJAX_BASE_URL=http://vamshop/ajax
     ports:
       - 3000:80
     depends_on:
