@@ -2,7 +2,8 @@ FROM node:8
 LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>, VamShop <vamshop@gmail.com>"
 
 ENV NGINX_CODENAME stretch
-ENV VAMSHOP_VERSION 0.36.0
+#ENV VAMSHOP_VERSION 0.36.0
+ENV VAMSHOP_VERSION master
 ENV API_PORT 3001
 
 # install requirements and NGINX
